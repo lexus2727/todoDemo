@@ -32,4 +32,25 @@ let createNewTask = function(task) {
     return listItem;
 }
 
+//add the new task into the incomplete list
+let addTask = function() {
+    console.log("Adding task...");
+
+    let listItem = createNewTask(newTask.value);//take value of new task and store it as list item
+    //add new list item to list
+    toDoUl.appendChild(listItem);
+
+    //clear input
+    newTask.value="";
+
+    //bind the new list item to the incomplete list
+    bindIncompleteItems(listItem, completeTask);
+}
+
+let completeTask = function() {
+
+    //grab the checkbox's parent element, the li it's in
+    
+}
+
 
