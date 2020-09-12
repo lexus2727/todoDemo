@@ -1,81 +1,121 @@
-//select element for new task 
-let newTask = document.getElementById('new-task');
 
-//select element for add task button
-let addTaskBtn = document.getElementById('addTask');
+    //SELECT ELEMENTS AND ASSIGN THEM TO VARS
+let newTask = document.querySelector('#new-task');
+let addTaskBtn = document.querySelector('#addTask');
 
-//select element for todo list ul
 let toDoUl = document.querySelector(".todo-list ul");
-
-//select element for completed tasks ul
-let completeUl = document.querySelector(".complete-list ul"); //ul is inside div
+let completeUl =  document.querySelector(".complete-list ul");
 
 
-//creating the actual task list item
-let createNewTask = function(task) {
-    console.log("Creating task...");
- 
-    //set up the new list item
-    let listItem = document.createElement("li");
-    let checkbox = document.createElement("input"); //creating element for checkbox
-    let label    = document.createElement("label"); //label created for task
+//CREATE FUNCTIONS
 
-    //pull inputted text into label
-    label.innerText = task;
+//CREATING THE ACTUAL TASK LIST ITEM
+let createNewTask = function(task){
+  console.log("Creating task...");
+  
+  //SET UP THE NEW LIST ITEM
+  let listItem = document.createElement("li"); //<li>
+  let checkBox = document.createElement("input"); //checkbox
+  let label = document.createElement("label"); // <label>
+  
+  
+  //PULL THE INPUTED TEXT INTO LABEL
+  label.innerText = task;
+  
+  //ADD PROPERTIES
+  checkBox.type = "checkbox";
+  
+  //ADD ITEMS TO THE LI
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
+  //EVERYTHING PUT TOGETHER
+  return listItem;  
+  
+};
 
-    //add type property for checkbox
-    checkbox.type = "checkbox";
+//ADD THE NEW TASK INTO ACTUAL INCOMPLETE LIST
+let addTask = function(){
+  console.log("Adding task...");
+  //FOR CLARITY, GRAB THE INPUTTED TEXT AND STORE IT IN A VAR
+  let listItem = createNewTask(newTask.value);
+  //ADD THE NEW LIST ITEM TO LIST
+  toDoUl.appendChild(listItem); 
+  //CLEAR THE INPUT
+  newTask.value="";
+  
+  //BIND THE NEW LIST ITEM TO THE INCOMPLETE LIST
+  bindIncompleteItems(listItem, completeTask);
 
-    //add items to the li element
-    listItem.appendChild(checkbox);
-    listItem.appendChild(label);
-    return listItem;
+};
+
+let completeTask = function(){
+  
+  //GRAB THE CHECKBOX'S PARENT ELEMENT, THE LI IT'S IN
+  let listItem = this.parentNode;
+  
+  //CREATE AND INSERT THE DELETE BUTTON
+  let deleteBtn = document.createElement("button"); // <button>
+  deleteBtn.innerText ="Delete"; 
+  deleteBtn.className = "delete";
+  listItem.appendChild(deleteBtn);
+  
+  //SELECT THE CHECKBOX FROM THE COMPLETED CHECKBOX AND REMOVE IT
+  let checkBox = listItem.querySelector("input[type=checkbox]");
+  checkBox.remove();
+  
+  //PLACE IT INSIDE THE COMPLETED LIST
+  completeUl.appendChild(listItem); 
+  
+  //BIND THE NEW COMPLETED LIST
+  bindCompleteItems(listItem, deleteTask);
+  
+};
+
+//DELETE TASK FUNCTIONS
+let deleteTask = function(){
+  console.log("Deleting task...");
+  
+  let listItem = this.parentNode;
+  let ul = listItem.parentNode;
+  
+  ul.removeChild(listItem);
+  
+};
+
+//A FUNCTION THAT BINDS EACH OF THE ELEMENTS THE INCOMPLETE LIST
+
+let bindIncompleteItems = function(taskItem, checkBoxClick){  
+  console.log("Binding the incomplete list...");
+  
+  //BIND THE CHECKBOX TO A VAR
+  let checkBox = taskItem.querySelector("input[type=checkbox]");
+  
+  //SETUP EVENT LISTENER FOR THE CHECKBOX
+  checkBox.onchange = checkBoxClick;  
+}; 
+
+
+//A FUNCTIONM THAT BINDS EACH OF THE ELEMTS IN THE COMPLETE LIST
+let bindCompleteItems = function(taskItem, deleteButtonPress){
+  console.log("Binding the complete list...");
+  
+  //BIND THE DELETE BUTTON
+  let deleteButton = taskItem.querySelector(".delete");
+   
+  //WHEN THE DELETE BUTTIN IS PRESSED, RUN THE deleteTask function
+  deleteButton.onclick = deleteButtonPress;
+    
+};
+
+
+for(let i=0; i < toDoUl.children.length; i++) {
+  bindIncompleteItems(toDoUl.children[i], completeTask);
 }
 
-//add the new task into the incomplete list
-let addTask = function() {
-    console.log("Adding task...");
-
-    let listItem = createNewTask(newTask.value);//take value of new task and store it as list item
-    //add new list item to list
-    toDoUl.appendChild(listItem);
-
-    //clear input
-    newTask.value="";
-
-    //bind the new list item to the incomplete list
-    bindIncompleteItems(listItem, completeTask);
-}
-
-let completeTask = function() {
-
-    //grab the checkbox's parent element, the li it's in
-    let listItem = this.parentNode;
-
-    //create and insert the delete button
-    let deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML="Delete";
-    deleteBtn.className= "delete";
-    listItem.appendChild(deleteBtn);
-
-    //select the checkbox from the completed checkbox and remove it
-    let checkbox = listItem.querySelector("input[type=checkbox]");
-    checkbox.remove();
-
-    //place the list item inside the completed list
-    completeUl.appendChild(listitem);
-
-    //bind the new completed list
-    bindCompleteItems(listItem, deleteTask);
-}
-
-//Delete Task Functions
-let deleteTask = function() {
-    console.log("Deleting task...");
-     let listItem = this.parentNode;
-     let ul = listItem.parentNode;
-     ul.removeChild(listItem);
+for(let i=0; i < completeUl.children.length; i++) {
+  bindCompleteItems(completeUl.children[i], deleteTask);
 }
 
 
+addTaskBtn.addEventListener("click", addTask);
 
