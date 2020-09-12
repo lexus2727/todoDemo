@@ -14,9 +14,9 @@ let createNewTask = function(task){
   console.log("Creating task...");
   
   //SET UP THE NEW LIST ITEM
-  let listItem = document.createElement("li"); //<li>
-  let checkBox = document.createElement("input"); //checkbox
-  let label = document.createElement("label"); // <label>
+  let listItem = document.createElement("li"); 
+  let checkBox = document.createElement("input"); 
+  let label = document.createElement("label"); 
   
   
   //PULL THE INPUTED TEXT INTO LABEL
