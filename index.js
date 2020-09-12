@@ -50,7 +50,32 @@ let addTask = function() {
 let completeTask = function() {
 
     //grab the checkbox's parent element, the li it's in
-    
+    let listItem = this.parentNode;
+
+    //create and insert the delete button
+    let deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML="Delete";
+    deleteBtn.className= "delete";
+    listItem.appendChild(deleteBtn);
+
+    //select the checkbox from the completed checkbox and remove it
+    let checkbox = listItem.querySelector("input[type=checkbox]");
+    checkbox.remove();
+
+    //place the list item inside the completed list
+    completeUl.appendChild(listitem);
+
+    //bind the new completed list
+    bindCompleteItems(listItem, deleteTask);
 }
+
+//Delete Task Functions
+let deleteTask = function() {
+    console.log("Deleting task...");
+     let listItem = this.parentNode;
+     let ul = listItem.parentNode;
+     ul.removeChild(listItem);
+}
+
 
 
