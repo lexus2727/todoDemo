@@ -1,5 +1,5 @@
 
-    //SELECT ELEMENTS AND ASSIGN THEM TO VARS
+    //SELECT ELEMENTS 
 let newTask = document.querySelector('#new-task');
 let addTaskBtn = document.querySelector('#addTask');
 
@@ -63,7 +63,7 @@ let completeTask = function(){
   let checkBox = listItem.querySelector("input[type=checkbox]");
   checkBox.remove();
   
-  //PLACE IT INSIDE THE COMPLETED LIST
+  //PLACE COMPLETED TASKS INSIDE THE COMPLETED LIST
   completeUl.appendChild(listItem); 
   
   //BIND THE NEW COMPLETED LIST
