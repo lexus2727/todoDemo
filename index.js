@@ -87,7 +87,7 @@ let deleteTask = function(){
 let bindIncompleteItems = function(taskItem, checkBoxClick){  
   console.log("Binding the incomplete list...");
   
-  //BIND THE CHECKBOX TO A VAR
+  //BIND THE CHECKBOX 
   let checkBox = taskItem.querySelector("input[type=checkbox]");
   
   //SETUP EVENT LISTENER FOR THE CHECKBOX
