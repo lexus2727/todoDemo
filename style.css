@@ -3,7 +3,7 @@
 }
 
 #container {
-    background-color: #80ffe5;
+    background-color: #ccffcc;
     padding: 25px;
     max-width: 760px; 
     margin: 25px auto;
@@ -40,6 +40,7 @@ h2 {
    border-radius: 5px;
    background-color: white;
    /*#FFF = white*/
+   margin: 15px 0;
 
    
 }
